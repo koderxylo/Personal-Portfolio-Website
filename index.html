@@ -1,36 +1,79 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Personal Portfolio Website</title>
-    <!----CSS link----->
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <div class="hero">
-      <nav>
-        <img src="./img/logo.png" class="logo" />
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Service</a></li>
-          <li><a href="#">Portfolio</a></li>
-          <li><a href="#">Blog</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-        <a href="#" class="btn">Resume</a>
-      </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Kiss Day Trisha</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@600&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+        .font-baloo { font-family: 'Baloo Bhai 2', cursive; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center bg-pink-100">
+    <main class="container text-center p-5 max-w-2xl mx-auto">
+        <h1 class="font-baloo text-4xl text-pink-600 my-5 animate-pulse">Happy Kiss Day Trisha 💋</h1>
+        
+        <div class="heart-container relative h-64">
+            <img src="https://media.giphy.com/media/3o7TKMt1VVOMb526CA/giphy.gif" 
+                 alt="Kissing animation" 
+                 class="mx-auto rounded-lg shadow-xl transform hover:scale-105 transition-transform">
+        </div>
 
-      <div class="content">
-        <span class="title">Freelance Web Developer</span>
-        <h1>Hello, I’m <span>emma</span></h1>
-        <p>
-          I’m working on a professional, visually sophisticated and
-          technologically proficient, responsive and multi-functional React
-          Components.
-        </p>
-        <a href="#" class="btn">Download CV</a>
-      </div>
-    </div>
-  </body>
+        <div class="mt-8">
+            <button id="kissBtn" 
+                    class="font-baloo text-xl bg-pink-500 hover:bg-pink-600 text-white px-8 py-3 rounded-full 
+                           transform transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg">
+                Send Flying Kisses 💖 (<span id="count">0</span>)
+            </button>
+        </div>
+    </main>
+
+    <script>
+        let kissCount = 0;
+        const button = document.getElementById('kissBtn');
+        const countSpan = document.getElementById('count');
+
+        function createKiss(x, y) {
+            const kiss = document.createElement('div');
+            kiss.className = 'absolute text-3xl animate-float';
+            kiss.innerHTML = '💋';
+            kiss.style.left = `${x}px`;
+            kiss.style.top = `${y}px`;
+            kiss.style.animation = `float ${2 + Math.random() * 2}s linear forwards`;
+            document.body.appendChild(kiss);
+
+            setTimeout(() => kiss.remove(), 3000);
+        }
+
+        function spreadLove() {
+            // Create kisses in random positions across the screen
+            const screenWidth = window.innerWidth;
+            const screenHeight = window.innerHeight;
+            
+            for(let i = 0; i < 50; i++) {
+                const x = Math.random() * screenWidth;
+                const y = Math.random() * screenHeight;
+                createKiss(x, y);
+            }
+
+            kissCount++;
+            countSpan.textContent = kissCount;
+            
+            // Add heart pulse effect
+            button.classList.add('animate-pulse');
+            setTimeout(() => button.classList.remove('animate-pulse'), 200);
+        }
+
+        button.addEventListener('click', spreadLove);
+        button.addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            spreadLove();
+        });
+    </script>
+</body>
 </html>
+.
